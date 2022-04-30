@@ -1,70 +1,50 @@
 const gameBoardElements = document.querySelectorAll('[data-cell]');
 
+const playerArray = [];
+const computerArray = [];
+const gameBoardArray = [0,1,2,3,4,5,6,7,8];
+
+
 gameBoardElements.forEach(cell => {
-    cell.addEventListener('click', addX, { once: true});
+    cell.addEventListener('click', playerTurn, { once: true});
 })
 
-const playerWin = [[0,1,2], 
+const winingCombination = [
+    [0,1,2], 
     [3,4,5],
     [6,7,8],
     [0,3,6],
     [1,4,7],
     [2,5,8],
     [0,4,8],
-    [2,4,6]];
+    [2,4,6]
+]
 
-function addX(e) {
+function playerTurn(e) {
     console.log(e.target.id);
     console.log(e.target);
     e.target.textContent = "X"
     let i = e.target.id;
-    gameBoard[i] = i;
-    comparatoring();
+    playerArray.push(i);
+    boardEvaluation();
 }
 
-function comparator() {
-
-    let comparison = [];
-    let x = 0;
-    while (x < 9) {
-        if (gameBoard[x] === 'x') {
-            comparison.push(x-1);
-        }
-        x++;
-    }
-    return comparison
-}
-
-const gameBoard = new Array(9);
-
-
-function comparatoring() {
-    const w = [];
-    gameBoard.forEach(e => {
-        if (e === ',') {
-
-        }
-        else {
-            w.push(e);
-        }
-    })
-    let l = w.toString();
-
-    playerWin.forEach(element => {
+function computerTurn(){
     
-    let c = element.toString();
-    if (l == c) {
-        console.log('hurray')
+}
+
+function boardEvaluation() {
+    let playerString =  playerArray.toString();
+
+    winingCombination.forEach(element => {
+    
+    let winingCombinationString = element.toString();
+    if (playerString == winingCombinationString) {
+        console.log('Player wins')
     }
   })
 }
 
-const game = (() => {
-    const gameBoard = new Array(9)
-
-    return {gameBoard};
-
-})();
 
 // Have an Array
 // Add to that Array
