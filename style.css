@@ -1,0 +1,40 @@
+:root {
+    --cell-size: 100px;
+}
+
+body {
+    margin: 0px;
+}
+
+.game-board {
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell {
+    border: 1px solid white;
+    background-color: black;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    color: white;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 5em;
+}
+
+.cell:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+    transition: 200ms linear;
+}
+
+.end-game {
+    display: none;
+}
