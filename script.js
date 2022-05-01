@@ -24,13 +24,27 @@ function playerTurn(e) {
     console.log(e.target.id);
     console.log(e.target);
     e.target.textContent = "X"
-    let i = e.target.id;
+    let i = Number(e.target.id);
     playerArray.push(i);
     boardEvaluation();
+    computerTurn();
 }
 
 function computerTurn(){
-    
+    let pickedCells = playerArray.concat(computerArray);
+    let computerPossibleChoices = [];
+    gameBoardArray.forEach(option => {
+        for (let i = 0; i < pickedCells.length; i++) {
+            if (!(option == pickedCells[i])) {
+                computerPossibleChoices.push(option)
+            }
+        }   
+    })
+    let computerChoice = computerPossibleChoices[Math.floor(Math.random() * computerPossibleChoices.length)];
+    computerArray.push(computerChoice);
+    let gameBoardQuery = document.getElementById(computerChoice);
+    gameBoardQuery.textContent = "O";
+
 }
 
 function boardEvaluation() {
