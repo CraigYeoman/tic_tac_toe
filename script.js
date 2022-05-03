@@ -1,7 +1,7 @@
 const gameBoardElements = document.querySelectorAll('[data-cell]');
 
-const playerArray = [];
-const computerArray = [];
+let playerArray = [];
+let computerArray = [];
 let gameBoardArray = [0,1,2,3,4,5,6,7,8];
 
 
@@ -20,32 +20,29 @@ const winingCombination = [
     [2,4,6]
 ]
 
+function game() {
+    if (boardEvaluation(playerArray)) {
+        console.log('Player win');
+    } else if (draw()) {
+        console.log('Draw')
+    } else if (computerTurn()) {
+        console.log('Computer wins')
+    }
+}
+
 function playerTurn(e) {
     e.target.textContent = "X"
     let i = Number(e.target.id);
     playerArray.push(i);
-    boardEvaluation(playerArray);
-    computerTurn();
-    boardEvaluation(computerArray);
+    game();
 }
-
-// function filterArray(value) {
-//     for (let i = 0; i < pickedCells.length; i++) {
-//         if (value === pickedCells[i]) {
-            
-//         } else {
-//             return value
-//         }
-//     }
-// }
 
 function computerTurn(){
     let pickedCells = playerArray.concat(computerArray);
     let computerPossibleChoices = [0,1,2,3,4,5,6,7,8];
     pickedCells.sort(function(a, b){return a - b});
     gameBoardArray.forEach(option => {
-        let i = 0;
-        
+        let i = 0;    
         while (i < pickedCells.length) {
             if (pickedCells[i] === option) {
                 let index = computerPossibleChoices.indexOf(option);
@@ -55,31 +52,22 @@ function computerTurn(){
                 i++
             }
         }
-        return computerPossibleChoices;
-
-
-        // for (let i = 0; i < pickedCells.length; i++) {
-        //     if (option == pickedCells[i]) {
-        //         return
-        //     } else {
-        //         computerPossibleChoices.push(option)
-        //     }
-        // }   
+        return computerPossibleChoices; 
     })
     let computerChoice = computerPossibleChoices[Math.floor(Math.random() * computerPossibleChoices.length)];
     computerArray.push(computerChoice);
     let gameBoardQuery = document.getElementById(computerChoice);
     gameBoardQuery.textContent = "O";
-
+    return boardEvaluation(computerArray)
 }
 
 function draw() {
     let pickedCells = playerArray.concat(computerArray);
     pickedCells.sort(function(a, b){return a - b});
     pickedCellsString = pickedCells.toString();
-    gameBoardArrayString = gameBoardArray.string;
-    (pickedCellsString == gameBoardArrayString) 
-        return console.log('draw')
+    gameBoardArrayString = gameBoardArray.toString();
+    return pickedCellsString == gameBoardArrayString;
+        
 }
 
 function boardEvaluation(array) {
@@ -88,10 +76,17 @@ function boardEvaluation(array) {
         })
 }
 
+function endGameMessage(info) {
+    // endGameModal.classList.add('activate');
+    // endGameBackGround.classList.add('activate');
+    playerArray = []
+    computerArray = []
+    gameBoardElements.forEach(cell => cell.textContent = '')
+}
 
 // Have an Array
 // Add to that Array
-//  Take turns
+// Take turns
 // Evalaute Array
 
 // const game = {

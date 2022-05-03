@@ -36,5 +36,42 @@ body {
 }
 
 .end-game {
+    position: fixed;
+    z-index: 1;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    top: 35%;
+    left: 50%;
+    background-color: #1F2937;
+    color: #F9FAF8;
+    font-weight: bold;
+    padding: 10px;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.end-game.activate {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.end-game-heading {
+    text-align: center;
+}
+
+.background-modal {
+    position: fixed;
+    height: 100%;
+    width: 100%;
     display: none;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    opacity: .7;
+}
+
+.background-modal.activate {
+    display: block;
 }
