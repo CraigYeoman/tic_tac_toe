@@ -1,9 +1,15 @@
 const gameBoardElements = document.querySelectorAll('[data-cell]');
+const endGame = document.querySelector('[data-end-game]');
+const endGameMessage = document.querySelector('[data-end-game-message]')
+const endGameBackGround = document.querySelector('[data-background-end-game]');
+const restartButton = document.querySelector('[restart-button]');
+
 
 let playerArray = [];
 let computerArray = [];
 let gameBoardArray = [0,1,2,3,4,5,6,7,8];
 
+endGame.addEventListener('click', boardReset);
 
 gameBoardElements.forEach(cell => {
     cell.addEventListener('click', playerTurn, { once: true});
@@ -23,10 +29,13 @@ const winingCombination = [
 function game() {
     if (boardEvaluation(playerArray)) {
         console.log('Player win');
+        endModal('player');
     } else if (draw()) {
-        console.log('Draw')
+        console.log('Draw');
+        endModal('Draw');
     } else if (computerTurn()) {
-        console.log('Computer wins')
+        console.log('Computer wins');
+        endModal('Computer');
     }
 }
 
@@ -58,6 +67,7 @@ function computerTurn(){
     computerArray.push(computerChoice);
     let gameBoardQuery = document.getElementById(computerChoice);
     gameBoardQuery.textContent = "O";
+    gameBoardQuery.removeEventListener('click',playerTurn);
     return boardEvaluation(computerArray)
 }
 
@@ -76,12 +86,22 @@ function boardEvaluation(array) {
         })
 }
 
-function endGameMessage(info) {
-    // endGameModal.classList.add('activate');
-    // endGameBackGround.classList.add('activate');
+function endModal(info) {
+    endGame.classList.add('activate');
+    endGameBackGround.classList.add('activate');
+    endGameBackGround.textContent = info+' '+'Wins';
+    
+}
+
+function boardReset() {
     playerArray = []
     computerArray = []
     gameBoardElements.forEach(cell => cell.textContent = '')
+    endGame.classList.remove('activate');
+    endGameBackGround.classList.remove('activate');
+    gameBoardElements.forEach(cell => {
+        cell.addEventListener('click', playerTurn, { once: true});
+    })
 }
 
 // Have an Array

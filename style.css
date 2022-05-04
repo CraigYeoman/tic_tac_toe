@@ -61,7 +61,7 @@ body {
     text-align: center;
 }
 
-.background-modal {
+.background-end-game {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -72,6 +72,6 @@ body {
     opacity: .7;
 }
 
-.background-modal.activate {
+.background-end-game.activate {
     display: block;
 }
