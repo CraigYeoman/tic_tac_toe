@@ -30,27 +30,27 @@ const ticTacToe = {
     },
     playerTurn: function(e) {
         e.target.textContent = "X"
-        let i = Number(this.e.target.id);
+        let i = Number(e.target.id);
         this.playerArray.push(i);
-        game();
+        this.game();
     },
     game: function() {
-        if (boardEvaluation(playerArray)) {
+        if (this.boardEvaluation(this.playerArray)) {
             console.log('Player win');
-            endModal('Player');
-        } else if (draw()) {
+            this.endModal('Player');
+        } else if (this.draw()) {
             console.log('Draw');
-            endModal('Draw');
-        } else if (computerTurn()) {
+            this.endModal('Draw');
+        } else if (this.computerTurn()) {
             console.log('Computer wins');
-            endModal('Computer');
+            this.endModal('Computer');
         }
     },
     computerTurn: function() {
-        let pickedCells = playerArray.concat(computerArray);
+        let pickedCells = this.playerArray.concat(this.computerArray);
         let computerPossibleChoices = [0,1,2,3,4,5,6,7,8];
         pickedCells.sort(function(a, b){return a - b});
-        gameBoardArray.forEach(option => {
+        this.gameBoardArray.forEach(option => {
             let i = 0;    
             while (i < pickedCells.length) {
                 if (pickedCells[i] === option) {
@@ -64,41 +64,41 @@ const ticTacToe = {
             return computerPossibleChoices; 
         })
         let computerChoice = computerPossibleChoices[Math.floor(Math.random() * computerPossibleChoices.length)];
-        computerArray.push(computerChoice);
+        this.computerArray.push(computerChoice);
         let gameBoardQuery = document.getElementById(computerChoice);
         gameBoardQuery.textContent = "O";
-        gameBoardQuery.removeEventListener('click',playerTurn);
-        return boardEvaluation(computerArray)
+        gameBoardQuery.removeEventListener('click',this.playerTurn);
+        return this.boardEvaluation(this.computerArray)
     },
     draw: function () {
-        let pickedCells = playerArray.concat(computerArray);
+        let pickedCells = this.playerArray.concat(this.computerArray);
         pickedCells.sort(function(a, b){return a - b});
         pickedCellsString = pickedCells.toString();
-        gameBoardArrayString = gameBoardArray.toString();
+        gameBoardArrayString = this.gameBoardArray.toString();
         return pickedCellsString == gameBoardArrayString;     
     },
     boardEvaluation: function (array) {
-        return winingCombination.some(combination => {
+        return this.winingCombination.some(combination => {
             return combination.every(element => array.includes(element))       
             })
     },
     endModal: function (info) {
-        endGame.classList.add('activate');
-        endGameBackGround.classList.add('activate');
+        this.endGame.classList.add('activate');
+        this.endGameBackGround.classList.add('activate');
         if (info ===  'Draw') {
-            endGameMessage.textContent = info
+            this.endGameMessage.textContent = info
         } else {
-            endGameMessage.textContent = info+' '+'Wins';
+            this.endGameMessage.textContent = info+' '+'Wins';
         }
     },
     boardReset: function () {
-        playerArray = []
-        computerArray = []
-        gameBoardElements.forEach(cell => cell.textContent = '')
-        endGame.classList.remove('activate');
-        endGameBackGround.classList.remove('activate');
-        gameBoardElements.forEach(cell => {
-            cell.addEventListener('click', playerTurn, { once: true});
+        this.playerArray = [];
+        this.computerArray = [];
+        this.gameBoardElements.forEach(cell => cell.textContent = '');
+        this.endGame.classList.remove('activate');
+        this.endGameBackGround.classList.remove('activate');
+        this.gameBoardElements.forEach(cell => {
+            cell.addEventListener('click', this.playerTurn, { once: true});
         })
     }
 };
