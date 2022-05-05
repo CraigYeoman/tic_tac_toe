@@ -1,5 +1,7 @@
 :root {
     --cell-size: 100px;
+    --background-color: rgb(0, 0, 0);
+    --font-color: white;
 }
 
 body {
@@ -19,10 +21,10 @@ body {
 
 .cell {
     border: 1px solid white;
-    background-color: black;
+    background-color: var(--background-color);
     width: var(--cell-size);
     height: var(--cell-size);
-    color: white;
+    color: var(--font-color);
     display: flex;
     align-items:center;
     justify-content:center;
@@ -46,15 +48,21 @@ body {
     justify-content: center;
     top: 35%;
     left: 50%;
-    background-color: #1F2937;
-    color: #F9FAF8;
+    background-color: var(--background-color);
+    color: var(--font-color);
     font-weight: bold;
     padding: 10px;
     transform: translate(-50%, -50%) scale(0);
 }
 
+.end-game-message {
+    margin-bottom: 15px;
+}
+
 .end-game.activate {
     transform: translate(-50%, -50%) scale(1);
+    border: 5px solid white;
+    border-radius: 15px
 }
 
 .end-game-heading {
@@ -68,7 +76,7 @@ body {
     display: none;
     top: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: var(--background-color);
     opacity: .7;
 }
 

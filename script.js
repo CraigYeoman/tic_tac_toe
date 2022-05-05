@@ -29,7 +29,7 @@ const winingCombination = [
 function game() {
     if (boardEvaluation(playerArray)) {
         console.log('Player win');
-        endModal('player');
+        endModal('Player');
     } else if (draw()) {
         console.log('Draw');
         endModal('Draw');
@@ -89,8 +89,11 @@ function boardEvaluation(array) {
 function endModal(info) {
     endGame.classList.add('activate');
     endGameBackGround.classList.add('activate');
-    endGameBackGround.textContent = info+' '+'Wins';
-    
+    if (info ===  'Draw') {
+        endGameMessage.textContent = info
+    } else {
+        endGameMessage.textContent = info+' '+'Wins';
+    }
 }
 
 function boardReset() {
