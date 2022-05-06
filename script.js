@@ -20,7 +20,7 @@ const ticTacToe = {
     cacheDom: function() {
         this.gameBoardElements = document.querySelectorAll('[data-cell]');
         this.endGame = document.querySelector('[data-end-game]');
-        this.endGameMessage = document.querySelector('[data-end-game-message]')
+        this.endGameMessage = document.querySelector('[data-end-game-message]');
         this.endGameBackGround = document.querySelector('[data-background-end-game]');
         this.restartButton = document.querySelector('[restart-button]');  
     },
@@ -67,7 +67,7 @@ const ticTacToe = {
         this.computerArray.push(computerChoice);
         let gameBoardQuery = document.getElementById(computerChoice);
         gameBoardQuery.textContent = "O";
-        gameBoardQuery.removeEventListener('click',this.playerTurn);
+        gameBoardQuery.removeEventListener('click', this.playerTurn, true);
         return this.boardEvaluation(this.computerArray)
     },
     draw: function () {
@@ -92,15 +92,13 @@ const ticTacToe = {
         }
     },
     boardReset: function () {
-        this.playerArray = [];
-        this.computerArray = [];
-        this.gameBoardElements.forEach(cell => cell.textContent = '');
-        this.endGame.classList.remove('activate');
-        this.endGameBackGround.classList.remove('activate');
-        this.gameBoardElements.forEach(cell => {
-            cell.addEventListener('click', this.playerTurn, { once: true});
-        })
-    }
+        ticTacToe.playerArray = [];
+        ticTacToe.computerArray = [];
+        ticTacToe.gameBoardElements.forEach(cell => cell.textContent = '');
+        ticTacToe.endGame.classList.remove('activate');
+        ticTacToe.endGameBackGround.classList.remove('activate');
+        ticTacToe.bindEvents();
+    },
 };
 
 ticTacToe.init();
